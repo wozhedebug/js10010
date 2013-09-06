@@ -27,8 +27,19 @@
 
 			console.log('下单！');
 
+			var submitted = false;
+			$('#orderSubmitForm').submit(function(event) {
+				submitted = true;
+				return true;
+			});
 			fromJSON();
-			$('#orderSubmit').click();
+
+			setTimeout(function() {
+				if (!submitted) {
+					console.log('亡羊补牢，现在按按钮还来得及吗？');
+					$('#orderSubmit').click();
+				}
+			}, 200);
 		}
 	};
 
