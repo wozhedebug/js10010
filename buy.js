@@ -1,23 +1,20 @@
-if (!window.ed10010) {
-	$('#buyForm').submit(function(event){
-		var price = parseFloat($('.lineThrough').text().substring(1));
-		if (isNaN(price)) {
-			price = parseFloat($('.goodsPrice').text());
+(function(){
+	if (!window.ed10010) {
+		$('#buyForm').submit(function(event){
+			var price = parseFloat($('.lineThrough').text().substring(1));
 			if (isNaN(price)) {
-				price = 3000;
-			} else {
-				price *= 0.8
+				window.alert('找不到原价，刷新页面后重试');
+				window.location.reload();
+				return;
 			}
-		} else {
-			price *= 0.6;
-		}
 
-		console.log('期待价格不大于 ' + price);
-		localStorage.setItem('lessthan', price);
-		localStorage.setItem('ed10010', JSON.stringify($(this). serializeArray()));
-		return true;
-	});
-	window.ed10010 = true;
-}
+			console.log('原价 ' + price);
+			localStorage.setItem('original', price);
+			localStorage.setItem('ed10010', JSON.stringify($(this). serializeArray()));
+			return true;
+		});
+		window.ed10010 = true;
+	}
 
-$('#submit_btn_id').click();
+	$('#submit_btn_id').click();
+})();

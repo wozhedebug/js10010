@@ -1,7 +1,8 @@
 (function(){
 	var fakedata = JSON.parse(localStorage.getItem('ed10010'));
-	var expected = localStorage.getItem('lessthan');
-	console.log('期待价格不大于 ' + expected);
+	var original = localStorage.getItem('original');
+	console.log('原价 ' + original + ', 期待价格不大于 ' + (original*0.6));
+	var expected = original*0.6;
 
 	var $newPage;
 
