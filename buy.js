@@ -10,7 +10,7 @@
 
 			console.log('原价 ' + price);
 			localStorage.setItem('original', price);
-			localStorage.setItem('ed10010', JSON.stringify($(this). serializeArray()));
+			localStorage.setItem('ed10010', JSON.stringify($(this).serializeArray()));
 			return true;
 		});
 		window.ed10010 = true;
