@@ -20,7 +20,7 @@
 			setTimeout(trigger, 1000);
 		} else if (price > expected) {
 			console.log('价格太高 ' + price + ' > ' + expected);
-			trigger();
+			deferTrigger();
 		} else {
 			$('#orderSubmitForm #_m_token').attr('value', $newPage.filter('#orderSubmitForm').find('#_m_token').attr('value'));
 			$('#orderSubmitForm #_m_state').attr('name', $newPage.filter('#orderSubmitForm').find('#_m_state').attr('name'));
@@ -41,6 +41,33 @@
 					$('#orderSubmit').click();
 				}
 			}, 200);
+		}
+	};
+
+	var deferTrigger = function() {
+		var d = new Date();
+		var interval = 60;
+		switch (d.getHours()) {
+			case 8:
+			case 12:
+			case 19:
+				if (d.getMinutes() > 57)
+					interval = 0;
+				break;
+			case 9:
+			case 13:
+			case 20:
+				interval = 0;
+				break;
+			default:
+		}
+
+		console.log('下次刷新间隔 ' + interval + ' 秒');
+
+		if (interval == 0) {
+			trigger();
+		} else {
+			setTimeout(trigger, interval * 1000);
 		}
 	};
 
