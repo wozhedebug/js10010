@@ -1,10 +1,8 @@
-http://realaboo.net/10010.html
-
 用法：
 
 1. Chrome的收藏夹里加三项。在收藏夹那栏右键点"Add Page"，URL分别填：
-javascript:$.getScript('http://realaboo.net/buy.js')
-javascript:$.getScript('http://realaboo.net/robot.js')
+javascript:$.getScript('http://[your server]/buy.js')
+javascript:$.getScript('http://[your server]/robot.js')
 javascript:window.stopRobot=1
 名字随便填，我填的分别是“购买”、“开刷”和“停止”。 
 
@@ -14,5 +12,6 @@ javascript:window.stopRobot=1
 
 4. 不想刷了点“停止”。 
 
+3.5 
 
 Javascript Console里能看log。
