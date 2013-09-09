@@ -6,8 +6,14 @@
 
 	var $newPage;
 
+	var lastTitle = '';
+	var logOnTitle = function(msg) {
+		console.log(msg);
+		document.title = msg + ' <--' + lastTitle;
+		lastTitle = msg;
+	};
+
 	var onPostReturn = function(data) {
-		console.log('提交返回');
 		$newPage = $(data);
 
 		$('span#Price').attr('goodsPrice', $newPage.filter('div').find('span#Price').attr('goodsPrice'));
@@ -16,17 +22,17 @@
 		var price = parseFloat($newPage.filter('div').find('span#Price').attr('goodsPrice'));
 
 		if (isNaN(price)) {
-			console.log('找不到价格');
+			logOnTitle('找不到价格');
 			deferTrigger();
 		} else if (price > expected) {
-			console.log('价格太高 ' + price + ' > ' + expected);
+			logOnTitle('价格太高 ' + price + ' > ' + expected);
 			deferTrigger();
 		} else {
 			$('#orderSubmitForm #_m_token').attr('value', $newPage.filter('#orderSubmitForm').find('#_m_token').attr('value'));
 			$('#orderSubmitForm #_m_state').attr('name', $newPage.filter('#orderSubmitForm').find('#_m_state').attr('name'));
 			$('#orderSubmitForm #_m_state').attr('value', $newPage.filter('#orderSubmitForm').find('#_m_state').attr('value'));
 
-			console.log('下单！');
+			logOnTitle('下单！');
 
 			var submitted = false;
 			$('#orderSubmitForm').submit(function(event) {
@@ -37,7 +43,7 @@
 
 			setTimeout(function() {
 				if (!submitted) {
-					console.log('亡羊补牢，现在按按钮还来得及吗？');
+					logOnTitle('亡羊补牢，现在按按钮还来得及吗？');
 					$('#orderSubmit').click();
 				}
 			}, 200);
@@ -46,7 +52,7 @@
 
 	var deferTrigger = function() {
 		var d = new Date();
-		var interval = 60;
+		var interval = 1;
 		switch (d.getHours()) {
 			case 8:
 			case 12:
@@ -62,7 +68,7 @@
 			default:
 		}
 
-		console.log('下次刷新间隔 ' + interval + ' 秒');
+		logOnTitle('下次刷新间隔 ' + interval + ' 秒');
 
 		if (interval == 0) {
 			trigger();
@@ -73,10 +79,10 @@
 
 	var trigger = function() {
 		if (window.stopRobot) {
-			console.log('手动结束!');
+			logOnTitle('手动结束!');
 			return;
 		}
-		console.log('重新提交');
+		logOnTitle('重新提交');
 		$.post('http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy', fakedata, onPostReturn);
 	};
 
