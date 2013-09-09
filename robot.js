@@ -52,7 +52,7 @@
 
 	var deferTrigger = function() {
 		var d = new Date();
-		var interval = 1;
+		var interval = 60;
 		switch (d.getHours()) {
 			case 8:
 			case 12:
