@@ -16,8 +16,8 @@
 		var price = parseFloat($newPage.filter('div').find('span#Price').attr('goodsPrice'));
 
 		if (isNaN(price)) {
-			console.log('找不到价格，等1秒重试');
-			setTimeout(trigger, 1000);
+			console.log('找不到价格');
+			deferTrigger();
 		} else if (price > expected) {
 			console.log('价格太高 ' + price + ' > ' + expected);
 			deferTrigger();
