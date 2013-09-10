@@ -54,7 +54,7 @@
 
 			setTimeout(function() {
 				if (!submitted) {
-					logOnTitle('亡羊补牢，现在按按钮还来得及吗？');
+					logOnTitle('还等什么，赶紧按提交啊');
 					$('#orderSubmit').click();
 				}
 			}, 200);
