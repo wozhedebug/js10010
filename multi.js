@@ -10,9 +10,20 @@
 
 	var count = 5;
 
+	var makeid = function() {
+		var text = "";
+		var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		for( var i=0; i < 3; i++ )
+			text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+		return text;
+	}
+
+	var prefix = makeid();
+
 	var openNew = function() {
-		console.log('创建隐藏表单 ' + count);
-		console.log(fakedata);
+		console.log('创建隐藏表单 ' + prefix + '_' + count);
 
 		var $form = $('<form></form')
 		.attr('action', 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy')
@@ -26,13 +37,13 @@
 			.appendTo($form);
 		});
 		
-		window.open('about:blank', 'bw' + count);
-		$form.attr('target', 'bw' + count).submit().empty().remove();
+		window.open('about:blank', 'bw' + prefix + '_' + count);
+		$form.attr('target', 'bw' + prefix + '_' + count).submit().empty().remove();
 
 		if (--count > 0)
 			setTimeout(openNew, 100);
 	};
 
 	openNew();
-		
+
 })();
