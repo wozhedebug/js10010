@@ -88,13 +88,26 @@
 		}
 	};
 
+	var onPostError = function(jqXHR, textStatus, errorThrown) {
+		logOnTitle('提交失败: ' + textStatus + ', ' + errorThrown);
+		deferTrigger();
+	};
+
 	var trigger = function() {
 		if (window.stopRobot) {
 			logOnTitle('手动结束!');
 			return;
 		}
 		logOnTitle('重新提交');
-		$.post('http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy', fakedata, onPostReturn);
+
+		$.ajax({
+			url: 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy',
+			type: 'POST',
+			data: fakedata,
+			timeout: 10000,
+			success: onPostReturn,
+			error: onPostError
+		});
 	};
 
 	delete window.stopRobot;
