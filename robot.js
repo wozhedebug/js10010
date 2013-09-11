@@ -104,7 +104,7 @@
 			url: 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy',
 			type: 'POST',
 			data: fakedata,
-			timeout: 20000,
+			timeout: 15000,
 			success: onPostReturn,
 			error: onPostError
 		});
