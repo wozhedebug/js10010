@@ -88,7 +88,7 @@
 		}
 	};
 
-	var onPostError = function(jqXHR, textStatus, errorThrown) {
+	var onPostError = function(request, textStatus, errorThrown) {
 		logOnTitle('提交失败: ' + textStatus + ', ' + errorThrown);
 		deferTrigger();
 	};
@@ -104,7 +104,7 @@
 			url: 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy',
 			type: 'POST',
 			data: fakedata,
-			timeout: 10000,
+			timeout: 20000,
 			success: onPostReturn,
 			error: onPostError
 		});
