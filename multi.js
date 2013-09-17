@@ -25,7 +25,7 @@
 	var openNew = function() {
 		console.log('创建隐藏表单 ' + prefix + '_' + count);
 
-		var $form = $('<form></form')
+		var $form = $('<form></form>')
 		.attr('action', 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy')
 		.appendTo('body');
 

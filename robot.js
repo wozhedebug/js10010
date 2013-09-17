@@ -44,20 +44,7 @@
 			$('#orderSubmitForm #_m_state').attr('value', $newPage.filter('#orderSubmitForm').find('#_m_state').attr('value'));
 
 			logOnTitle('下单！');
-
-			var submitted = false;
-			$('#orderSubmitForm').submit(function(event) {
-				submitted = true;
-				return true;
-			});
-			fromJSON();
-
-			setTimeout(function() {
-				if (!submitted) {
-					logOnTitle('还等什么，赶紧按提交啊');
-					$('#orderSubmit').click();
-				}
-			}, 200);
+			$('#orderSubmitForm').submit();
 		}
 	};
 
@@ -89,7 +76,7 @@
 	};
 
 	var onPostError = function(request, textStatus, errorThrown) {
-		logOnTitle('提交失败: ' + textStatus + ', ' + errorThrown);
+		logOnTitle('刷新失败: ' + textStatus);
 		deferTrigger();
 	};
 
@@ -98,7 +85,7 @@
 			logOnTitle('手动结束!');
 			return;
 		}
-		logOnTitle('重新提交');
+		logOnTitle('刷新');
 
 		$.ajax({
 			url: 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy',
@@ -110,6 +97,26 @@
 		});
 	};
 
+	var preSubmitted = false;
+	var preSubmit = function() {
+		$('#orderSubmitForm').submit(function(event) {
+			if (preSubmitted) return true;
+
+			if (!$('#orderSubmitForm #paramStr').val()) {
+				logOnTitle('信息不完整，无法保存下单数据');
+			} else {
+				logOnTitle('保存下单数据');
+				$('#orderSubmit').removeClass('clicked')
+				preSubmitted = true;
+				trigger();
+			}
+
+			return false;
+		});
+
+		orderSubmit();
+	};
+
 	delete window.stopRobot;
-	trigger();
+	preSubmit();
 })();
