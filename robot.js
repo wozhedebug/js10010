@@ -69,12 +69,12 @@
 			case 12:
 			case 19:
 				if (d.getMinutes() > 57)
-					interval = 0;
+					interval = !!window.robotInterval ? window.robotInterval : 0;
 				break;
 			case 9:
 			case 13:
 			case 20:
-				interval = 0;
+				interval = !!window.robotInterval ? window.robotInterval : 0;
 				break;
 			default:
 		}
@@ -104,7 +104,7 @@
 			url: 'http://mall.10010.com/mall-web/GoodsDetail/promtlyBuy',
 			type: 'POST',
 			data: fakedata,
-			timeout: 10000,
+			timeout: 15000,
 			success: onPostReturn,
 			error: onPostError
 		});
