@@ -1,14 +1,35 @@
 (function(){
 	var fakedata = JSON.parse(localStorage.getItem('ed10010'));
+	var numInfo = localStorage.getItem('hm10010') ? JSON.parse(localStorage.getItem('hm10010')) : {};
 	var original = localStorage.getItem('original');
+
 	var numPrice = 0;
 
-	for (var i = 0; i < fakedata.length; i++) {
-		if (fakedata[i].name == 'numberFee') {
-			numPrice = fakedata[i].value / 1000;
-			break;
+	var numberChecker;
+	var pingNumber = function() {
+		if (window.stopRobot) {
+			clearInterval(numberChecker);
+			return;
 		}
-	}
+
+		logOnTitle('问候新号码');
+
+		$.ajax({
+			url: 'http://mall.10010.com/mall-web/GoodsDetailAjax/occupyNumberAjax',
+			type: 'POST',
+			data: numInfo,
+			error: null
+		});
+	};
+
+	$.each(fakedata, function(i, obj) {
+		if (obj.name == 'numberFee') {
+			numPrice = obj.value / 1000;
+		} else if (obj.name == 'custTag' && obj.value == '1') {
+			console.log('新用户');
+			numberChecker = setInterval(pingNumber, 120000);
+		}
+	});
 
 	original -= numPrice;
 	var expected = original*0.6 + numPrice;
@@ -43,7 +64,7 @@
 			$('#orderSubmitForm #_m_state').attr('name', $newPage.filter('#orderSubmitForm').find('#_m_state').attr('name'));
 			$('#orderSubmitForm #_m_state').attr('value', $newPage.filter('#orderSubmitForm').find('#_m_state').attr('value'));
 
-			logOnTitle('下单！');
+			logOnTitle('发现价格 ' + price + ', 下单！');
 			$('#orderSubmitForm').submit();
 		}
 	};
