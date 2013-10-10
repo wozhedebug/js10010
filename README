@@ -3,7 +3,7 @@
 1. Chrome或者Firefox的收藏夹里加上以下几项，URL或Location 分别填：
 javascript:$.getScript('http://[your server]/buy.js')
 javascript:$.getScript('http://[your server]/robot.js')
-javascript:window.stopRobot=1
+javascript:(function(){window.stopRobot=1})()
 javascript:$.getScript('http://[your server]/multi.js')
 名字随便填，我填的分别是“购买”、“开刷”、“停止”和“多开”。 
 

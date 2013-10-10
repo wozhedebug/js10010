@@ -2,6 +2,9 @@
 	if (!window.ed10010) {
 		$('#buyForm').submit(function(event){
 			var price = parseFloat($('.lineThrough').text().substring(1));
+			if (isNaN(price)) {
+				price = parseFloat($('.goodsPrice').text());
+			}
 
 			if (isNaN(price)) {
 				window.alert('找不到原价，刷新页面后重试');
